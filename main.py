@@ -20,10 +20,20 @@ GROUP = PG.sprite.Group
 
 class Snowflake():
     def __init__(self):
-        pass
+        self.start_image = snowflake
+        self.generate()
+        self.rect.y = randint(0, SCREEN_HEIGHT-self.size)
+
+    def generate(self):
+        self.speed = randint(2, 4)
+        self.size = randint(32, 100)
+        self.rect = PG.Rect(
+            randint(0, SCREEN_WIDTH-self.size), -self.size, self.size, self.size)
+        self.image = PG.transform.scale(self.start_image, (self.size, self.size))
 
     def update(self):
-        # ваш код для перемещения
+        self.rect.y += self.speed
+        if self.rect.y > SCREEN_HEIGHT : self.generate()
         self.draw()
 
     def draw(self):
